@@ -1,0 +1,105 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.4.0'
+        classpath 'app.cash.paparazzi:paparazzi-gradle-plugin:1.3.3'
+    }
+}
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+//    id 'kotlin-parcelize'
+//    id 'com.google.devtools.ksp'
+    id 'app.cash.paparazzi' version '1.3.3'
+}
+
+repositories {
+    mavenCentral()
+    google()
+}
+android {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+}
+
+dependencies {
+
+    implementation platform('androidx.compose:compose-bom:2024.04.01')
+
+    testImplementation 'app.cash.turbine:turbine:1.0.0'
+
+    // Molecule
+    implementation("app.cash.molecule:molecule-runtime:2.0.0")
+    testImplementation("app.cash.molecule:molecule-runtime:2.0.0")
+
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.10.0")
+
+    testImplementation("androidx.compose.ui:ui-test-junit4:1.6.3")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.3")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // In order for paparazzi not to break ui tests
+    //    https://github.com/cashapp/paparazzi/issues/622
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+}
+
+android {
+    namespace 'dev.paparazzi.repro'
+    compileSdkVersion 34
+    buildFeatures {
+        compose true
+    }
+    defaultConfig {
+        applicationId "dev.paparazzi.repro"
+        minSdkVersion 26
+        targetSdkVersion 33
+        versionCode 100
+        versionName "6.0.3"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+    compileOptions {
+        sourceCompatibility rootProject.ext.java_version
+        targetCompatibility rootProject.ext.java_version
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.dev'
+            resValue "string", "app_name", "Dev"
+            debuggable true
+        }
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.3'
+    }
+
+}

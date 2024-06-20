@@ -1,0 +1,30 @@
+#header {
+    display:none;
+    padding-top: 0px;
+}
+
+.fk-loaded #footer {
+    display: none;
+}
+
+#content {
+    padding-bottom: 0px;
+}
+
+#footer {
+    display: none;
+}
+
+#content > div.container.ng-scope > div.page-header {
+    display:none
+}
+
+#nprogress {
+  display: none;
+}
+
+input[type=text],textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

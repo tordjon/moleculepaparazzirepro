@@ -1,0 +1,79 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        compose_ui_version = '1.4.7'
+    }
+    ext.java_version = JavaVersion.VERSION_17
+    ext.kotlin_version = '1.9.10'
+    repositories {
+        mavenCentral()
+        google()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath 'com.google.gms:google-services:4.4.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
+    }
+}
+
+plugins {
+//    id 'com.google.devtools.ksp' version '1.9.10-1.0.13' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.10' apply false
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        google()
+    }
+}
+
+tasks.register('clean', Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects {
+//    plugins.withId("app.cash.paparazzi") {
+//        // snippet nederst her som kan hjelpe ved endring til kts:
+//        // https://github.com/cashapp/paparazzi/issues/1231
+//        // Defer until afterEvaluate so that testImplementation is created by Android plugin.
+//        afterEvaluate {
+//            dependencies.constraints {
+//                add("testImplementation", "com.google.guava:guava") {
+//                    attributes {
+//                        attribute(
+//                                TargetJvmEnvironment.TARGET_JVM_ENVIRONMENT_ATTRIBUTE,
+//                                objects.named(TargetJvmEnvironment, TargetJvmEnvironment.STANDARD_JVM)
+//                        )
+//                    }
+//                    because("LayoutLib and sdk-common depend on Guava's -jre published variant." +
+//                            "See https://github.com/cashapp/paparazzi/issues/906.")
+//                }
+//            }
+//        }
+//    }
+//    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+//        kotlinOptions {
+//            if (project.findProperty("composeCompilerReports") == "true") {
+//                freeCompilerArgs += [
+//                        "-P",
+//                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+//                                project.buildDir.absolutePath + "/compose_compiler"
+//                ]
+//            }
+//            if (project.findProperty("composeCompilerMetrics") == "true") {
+//                freeCompilerArgs += [
+//                        "-P",
+//                        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
+//                                project.buildDir.absolutePath + "/compose_compiler"
+//                ]
+//            }
+//        }
+//    }
+}
